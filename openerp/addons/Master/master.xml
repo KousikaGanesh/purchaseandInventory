@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<record id="master_form" model="ir.ui.view">
+			<field name="name">master.form</field>
+			<field name="model">master</field>
+			<field name="arch" type="xml">
+			<form string="master" version="7.0">
+			<group>
+					
+					
+					<group>
+					
+						<field name="name"/>	
+						
+					</group>
+					<group>
+						<field name="creation_date"/>
+						<field name="date"/>
+					</group>
+					
+			</group>
+				
+				
+		
+					
+			</form>
+			</field> 
+	  </record>
+		
+		<record id="master_tree_view" model="ir.ui.view">
+			<field name="name">master.tree</field>
+			<field name="model">master</field>
+			<field name="arch" type="xml">
+				<tree toolbar="True" string="master">
+					<field name="name"/>	
+						<field name="creation_date"/>
+						<field name="date"/>
+					
+				</tree>
+			</field>
+		</record>
+		
+		 <record id="master_form_action" model="ir.actions.act_window">
+			<field name="name">master</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">master</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="master_tree_view"/>
+		</record>
+
+
+<menuitem id="master_mainmenu"  name="Master" sequence="0" /> 
+<menuitem  id="master_submenu" name="PO Master" parent="master_mainmenu" sequence="1"/> 
+<menuitem action="master_form_action" name="Brand Master" id="master_module_menu" parent="master_submenu" sequence="1"/> 
+
+
+</data>
+</openerp>
+
