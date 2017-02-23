@@ -22,13 +22,19 @@ class grn(osv.osv):
 
 	_columns = {
 		
-		'name': fields.char('Indent No', size=128),
+		'created_by': fields.char('Created By', size=128),
 		
-		'indent_date':fields.datetime('Indent date'),
-		'expected_date':fields.datetime('Expected date'),
-		'department': fields.char('Department', size=128),
-		'line_ids': fields.one2many('indent.line','indent_id','Line Id', size=128),
-		
+		'grn_no':fields.char('GRN No'),
+		'dc_no':fields.char('DC No'),
+		'inward_type': fields.char('Inward Type', size=128),
+	'billing_type': fields.char('Billing Type', size=128),
+	'created_date': fields.datetime('Created Date', size=128),
+	'grn_date':fields.datetime('GRN Date'),
+	'dc_date':fields.datetime('DC Date'),
+	'payment_type': fields.char('Payment Type', size=128),
+	'supplier': fields.char('Supplier', size=128),
+	'supplier_invoice_no':fields.char('Supplier Invoice No'),
+	'supplier_invoice_date':fields.datetime('Supplier Invoice Date'),	
 	}
 	
 grn()

@@ -29,11 +29,13 @@
 					
 					<tree>
 						<field name="product_id"/>
+						<field name="brand"/>
 						<field name="product_uom"/>
 						<field name="qty"/>
 					</tree>
 					<form>
 						<field name="product_id"/>
+						<field name="brand"/>
 						<field name="product_uom"/>
 						<field name="qty"/>
 					</form>

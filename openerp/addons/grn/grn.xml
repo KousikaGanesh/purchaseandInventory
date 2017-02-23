@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
-	
-	
+	<data>	
 	<record id="grn_form" model="ir.ui.view">
 			<field name="name">grn.form</field>
 			<field name="model">grn</field>
@@ -11,53 +9,53 @@
 			<group>
 					<group>
 						
-						<field name="name"/>
+						<field name="created_by"/>
 
-						<field name="department"/>
+						<field name="grn_no"/>
+						<field name="dc_no"/>
+						<field name="inward_type"/>
+						<field name="billing_type"/>
 						
 					</group>
 					<group>
-						<field name="indent_date"/>
-						<field name="expected_date"/>
+						<field name="created_date"/>
+						<field name="grn_date"/>
+						<field name="dc_date"/>
+						<field name="payment_type"/>
+					</group>
 					
 					
-						
+					<group>
+						<field name="supplier"/>
+						<field name="supplier_invoice_no"/>
+						<field name="supplier_invoice_date"/>
 					</group>
 					
 				</group>
-				
-				
-				<field name="line_ids">
-					
-					<tree>
-						<field name="product_id"/>
-						<field name="product_uom"/>
-						<field name="qty"/>
-					</tree>
-					<form>
-						<field name="product_id"/>
-						<field name="product_uom"/>
-						<field name="qty"/>
-					</form>
+				</form>
 				</field>
 				
-					
-					</form>
-			</field> 
-	  
-
-		</record>
+	</record>
 		
 		<record id="grn_tree_view" model="ir.ui.view">
 			<field name="name">grn.tree</field>
 			<field name="model">grn</field>
 			<field name="arch" type="xml">
 				<tree toolbar="True" string="grn">
-					
-					<field name="department"/>
-					<field name="indent_date"/>
-						<field name="expected_date"/>
-				</tree>
+						<field name="created_by"/>
+
+						<field name="grn_no"/>
+						<field name="dc_no"/>
+						<field name="inward_type"/>
+						<field name="billing_type"/>
+						<field name="created_date"/>
+						<field name="grn_date"/>
+						<field name="dc_date"/>
+						<field name="payment_type"/>
+						<field name="supplier"/>
+						<field name="supplier_invoice_no"/>
+						<field name="supplier_invoice_date"/>
+					</tree>
 			</field>
 		</record>
 		

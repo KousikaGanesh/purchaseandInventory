@@ -69,8 +69,9 @@
                 <menuitem id="base.menu_procurement_management_supplier_name_master" name="Suppliers"
         parent="master_submenu"
         action="base.action_partner_supplier_form" sequence="7"/>
-
-
-</data>
+        
+<menuitem action="master_form_action" name="Inward Type" id="master_module_menu" parent="master_submenu" sequence="8"/> 
+ 
+       </data>
 </openerp>
 
