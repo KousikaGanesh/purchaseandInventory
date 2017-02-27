@@ -24,16 +24,37 @@
 						<field name="payment_type"/>
 					</group>
 					
-					
-					<group>
+			
+					<group string="Supplier Details">
 						<field name="supplier"/>
 						<field name="supplier_invoice_no"/>
 						<field name="supplier_invoice_date"/>
 					</group>
 					
 				</group>
-				</form>
+				
+				
+				<field name="line_ids">
+					
+					<tree>
+						<field name="product_id"/>
+						<field name="brand"/>
+						<field name="product_uom"/>
+						<field name="qty"/>
+					</tree>
+					<form>
+						<field name="product_id"/>
+						<field name="brand"/>
+						<field name="product_uom"/>
+						<field name="qty"/>
+					</form>
 				</field>
+					
+					</form>
+			</field> 
+	  
+	
+					
 				
 	</record>
 		

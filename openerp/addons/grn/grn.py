@@ -35,7 +35,33 @@ class grn(osv.osv):
 	'supplier': fields.char('Supplier', size=128),
 	'supplier_invoice_no':fields.char('Supplier Invoice No'),
 	'supplier_invoice_date':fields.datetime('Supplier Invoice Date'),	
+    'line_ids': fields.one2many('grn.line', 'grn_id', 'GRN Id'),
+
 	}
 	
 grn()
+
+
+
+class grn_line(osv.osv):
+
+	_name = "grn.line"
+	_description = "grn"
+
+	_columns = {
+		
+		'grn_id': fields.many2one('grn','GRN No', size=128),
+		'product_uom': fields.many2one('product.uom', 'Product Unit of Measure', required=True),
+        'product_id': fields.many2one('product.product', 'Product'),
+        'brand': fields.many2one('master', 'Brand', ),
+        'qty':fields.float('Qty')
+		
+	}
+	
+	
+	
+	
+grn_line()
+
+
 
