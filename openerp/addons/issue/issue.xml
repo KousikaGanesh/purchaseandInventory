@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<record id="issue_form" model="ir.ui.view">
+			<field name="name">issue.form</field>
+			<field name="model">issue</field>
+			<field name="arch" type="xml">
+			<form string="issue" version="7.0">
+			
+			<group>
+					<group>
+						
+						<field name="issue_no"/>
+
+						<field name="department_name"/>
+						<field name="department_indent_id"/>
+						
+					</group>
+					<group>
+						<field name="issue_date"/>
+					
+					
+						
+					</group>
+					
+				</group>
+
+				<field name="line_ids">
+					
+					<tree>
+						<field name="product_id"/>
+						<field name="brand"/>
+						<field name="product_uom"/>
+						<field name="qty"/>
+					</tree>
+					<form>
+						<field name="product_id"/>
+						<field name="brand"/>
+						<field name="product_uom"/>
+						<field name="qty"/>
+					</form>
+				</field>
+
+					
+			</form>
+			</field> 
+	  </record>
+		
+		<record id="issue_tree_view" model="ir.ui.view">
+			<field name="name">issue.tree</field>
+			<field name="model">issue</field>
+			<field name="arch" type="xml">
+				<tree toolbar="True" string="issue">
+					
+					
+						
+					<field name="issue_no"/>
+
+						<field name="department_name"/>
+						<field name="department_indent_id"/>
+						<field name="issue_date"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="issue_form_action" model="ir.actions.act_window">
+			<field name="name">issue</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">issue</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="issue_tree_view"/>
+		</record>
+<menuitem  id="issue_submenu" name="Issue" parent="grn.grn_mainmenu" sequence="3"/> 
+<menuitem action="issue_form_action" name="Department Issue" id="issue_module_menu" parent="issue_submenu" sequence="4"/>
+</data>
+</openerp>
+
