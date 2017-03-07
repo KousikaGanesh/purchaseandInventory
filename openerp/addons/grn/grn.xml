@@ -5,7 +5,7 @@
 			<field name="name">grn.form</field>
 			<field name="model">grn</field>
 			<field name="arch" type="xml">
-			<form string="grn" version="7.0">
+			<form string="GRN" version="7.0">
 			<group>
 					<group>
 						
@@ -81,7 +81,7 @@
 		</record>
 		
 		 <record id="grn_form_action" model="ir.actions.act_window">
-			<field name="name">grn</field>
+			<field name="name">GRN</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">grn</field>
 			<field name="view_type">form</field>

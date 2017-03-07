@@ -5,7 +5,7 @@
 			<field name="name">purchase_indent.form</field>
 			<field name="model">purchase_indent</field>
 			<field name="arch" type="xml">
-			<form string="department_master" version="7.0">
+			<form string="Department Master" version="7.0">
 			
 			<group>
 					<group>
@@ -80,7 +80,7 @@
 		
 		
 		 <record id="purchase_indent_form_action" model="ir.actions.act_window">
-			<field name="name">purchase_indent</field>
+			<field name="name">Purchase Indent</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">purchase_indent</field>
 			<field name="view_type">form</field>

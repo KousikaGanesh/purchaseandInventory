@@ -5,7 +5,7 @@
 			<field name="name">master.form</field>
 			<field name="model">master</field>
 			<field name="arch" type="xml">
-			<form string="master" version="7.0">
+			<form string="Brand Master" version="7.0">
 			<group>
 					
 					
@@ -42,7 +42,7 @@
 		</record>
 		
 		 <record id="master_form_action" model="ir.actions.act_window">
-			<field name="name">master</field>
+			<field name="name">Brand Master</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">master</field>
 			<field name="view_type">form</field>
@@ -70,7 +70,7 @@
         parent="master_submenu"
         action="base.action_partner_supplier_form" sequence="7"/>
         
-<menuitem action="master_form_action" name="Inward Type" id="inward_master_menu" parent="master_submenu" sequence="8"/> 
+<!---<menuitem action="master_form_action" name="Inward Type" id="inward_master_menu" parent="master_submenu" sequence="8"/>-->
  
        </data>
 </openerp>

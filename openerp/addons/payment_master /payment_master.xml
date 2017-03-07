@@ -5,7 +5,7 @@
 			<field name="name">payment_master.form</field>
 			<field name="model">payment_master</field>
 			<field name="arch" type="xml">
-			<form string="payment_master" version="7.0">
+			<form string="Payment Master" version="7.0">
 			<group>
 					
 					
@@ -48,7 +48,7 @@
 		</record>
 		
 		 <record id="payment_master_form_action" model="ir.actions.act_window">
-			<field name="name">payment_master</field>
+			<field name="name">Payment Master</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">payment_master</field>
 			<field name="view_type">form</field>

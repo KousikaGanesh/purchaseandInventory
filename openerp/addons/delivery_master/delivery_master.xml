@@ -5,7 +5,7 @@
 			<field name="name">delivery_master.form</field>
 			<field name="model">delivery_master</field>
 			<field name="arch" type="xml">
-			<form string="delivery_master" version="7.0">
+			<form string="Delivery Master" version="7.0">
 			<group>
 					
 					
@@ -48,7 +48,7 @@
 		</record>
 		
 		 <record id="delivery_master_form_action" model="ir.actions.act_window">
-			<field name="name">delivery_master</field>
+			<field name="name">Delivery Master</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">delivery_master</field>
 			<field name="view_type">form</field>

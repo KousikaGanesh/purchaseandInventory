@@ -5,7 +5,7 @@
 			<field name="name">issue.form</field>
 			<field name="model">issue</field>
 			<field name="arch" type="xml">
-			<form string="issue" version="7.0">
+			<form string="Department Issue" version="7.0">
 			
 			<group>
 					<group>
@@ -64,7 +64,7 @@
 		</record>
 		
 		<record id="issue_form_action" model="ir.actions.act_window">
-			<field name="name">issue</field>
+			<field name="name">Department Issue</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">issue</field>
 			<field name="view_type">form</field>
