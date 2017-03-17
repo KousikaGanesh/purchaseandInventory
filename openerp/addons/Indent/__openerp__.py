@@ -25,7 +25,7 @@
     'images': ['images/purchase_requisitions.jpeg'],
     'website': 'http://www.openerp.com',
     'description': """ Cash Voucher Form """,
-    'depends' : ['base','product'],
+    'depends' : ['base','product','Department_master'],
     'data': ['indent.xml'],
     'auto_install': False,
     'installable': True,

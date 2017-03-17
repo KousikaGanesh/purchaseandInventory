@@ -25,7 +25,7 @@ class issue(osv.osv):
 		'issue_no': fields.char('Issue No', size=128),
 		
 		'issue_date':fields.datetime('Issue date'),
-		'department_name':fields.char('Department Name'),
+		'department_name':fields.many2one('department_master','Department Name'),
 		'department_indent_id': fields.char('Department Indent Id', size=128),
 		'line_ids': fields.one2many('purchase_indent.line','indent_no','Line Id', size=128),
 		

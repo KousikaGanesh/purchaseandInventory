@@ -30,7 +30,15 @@ class department_master(osv.osv):
 		'used_location': fields.many2one('stock.location', 'Used location'),
 
 
-	}
+	} 
+	
+	_defaults = {
+        'creation_date': fields.date.context_today,
+       
+    }
+    
+        
+        
 department_master()
 
 

@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
-	<record id="purchase_indent_form" model="ir.ui.view">
-			<field name="name">purchase_indent.form</field>
-			<field name="model">purchase_indent</field>
-			<field name="arch" type="xml">
-			<form string="Department Master" version="7.0">
-			
-			<group>
-					<group>
-						
-						<field name="name"/>
+    <data>
+    <record id="purchase_indent_form" model="ir.ui.view">
+            <field name="name">purchase_indent.form</field>
+            <field name="model">purchase_indent</field>
+            <field name="arch" type="xml">
+            <form string="Department Master" version="7.0">
+            
+            <group>
+                    <group>
+                        
+                        <field name="name"/>
 
-						<field name="purchase"/>
-						
-					</group>
-					<group>
-						<field name="indent_date"/>
-						<field name="expected_date"/>
-					
-					
-						
-					</group>
-					
-				</group>
+                        <field name="purchase"/>
+                        
+                    </group>
+                    <group>
+                        <field name="indent_date"/>
+                        <field name="expected_date"/>
+                    
+                    
+                        
+                    </group>
+                    
+                </group>
 
-				<field name="line_ids">
-					
-					<tree>
-						<field name="product_id"/>
-						<field name="brand"/>
-						<field name="product_uom"/>
-						<field name="qty"/>
-					</tree>
-					<form>
-						<field name="product_id"/>
-						<field name="brand"/>
-						<field name="product_uom"/>
-						<field name="qty"/>
-					</form>
-				</field>
-				
-					
+                <field name="line_ids">
+                    
+                    <tree editable="bottom">
+                        <field name="product_id" on_change="onchange_product_uom(product_id)"/>
+                        <field name="brand"/>
+                        <field name="product_uom"/>
+                        <field name="qty"/>
+                    </tree>
+                    <form>
+                        <field name="product_id"/>
+                        <field name="brand"/>
+                        <field name="product_uom"/>
+                        <field name="qty"/>
+                    </form>
+                </field>
+                
+                    
 <!--
-		<group>
-					<group>
-					
-					
-					</group>		
+        <group>
+                    <group>
+                    
+                    
+                    </group>        
 
-		</group>
+        </group>
 -->
-					
-			</form>
-			</field> 
-	  </record>
-		
-		<record id="purchase_indent_tree_view" model="ir.ui.view">
-			<field name="name">purchase_indent.tree</field>
-			<field name="model">purchase_indent</field>
-			<field name="arch" type="xml">
-				<tree toolbar="True" string="purchase_indent">
-					
-					
-						
-						<field name="name"/>
+                    
+            </form>
+            </field> 
+      </record>
+        
+        <record id="purchase_indent_tree_view" model="ir.ui.view">
+            <field name="name">purchase_indent.tree</field>
+            <field name="model">purchase_indent</field>
+            <field name="arch" type="xml">
+                <tree toolbar="True" string="purchase_indent">
+                    
+                    
+                        
+                        <field name="name"/>
 
-						<field name="purchase"/>
-						<field name="indent_date"/>
-						<field name="expected_date"/>
-					
-					
-		
-					
-				</tree>
-			</field>
-		</record>
-		
-		
-		
-		 <record id="purchase_indent_form_action" model="ir.actions.act_window">
-			<field name="name">Purchase Indent</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">purchase_indent</field>
-			<field name="view_type">form</field>
-			<field name="view_id" ref="purchase_indent_tree_view"/>
-		</record>
+                        <field name="purchase"/>
+                        <field name="indent_date"/>
+                        <field name="expected_date"/>
+                    
+                    
+        
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+         <record id="purchase_indent_form_action" model="ir.actions.act_window">
+            <field name="name">Purchase Indent</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase_indent</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="purchase_indent_tree_view"/>
+        </record>
 
 
 <menuitem  id="purchase_indent_submenu" name="Purchase Indent" parent="Indent.indent_mainmenu" sequence="3"/> 
