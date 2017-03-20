@@ -6,18 +6,18 @@
             <field name="model">purchase_indent</field>
             <field name="arch" type="xml">
             <form string="Department Master" version="7.0">
-            
+            <button name="load_department_indent" string="Load DI Details" type="object" class="oe_highlight" />
             <group>
                     <group>
                         
                         <field name="name"/>
 
-                        <field name="purchase"/>
+                        <field name="di_ids" widget="many2many_tags" required="1"/>
                         
                     </group>
                     <group>
                         <field name="indent_date"/>
-                        <field name="expected_date"/>
+                       
                     
                     
                         
@@ -66,10 +66,9 @@
                         
                         <field name="name"/>
 
-                        <field name="purchase"/>
+                        
                         <field name="indent_date"/>
-                        <field name="expected_date"/>
-                    
+                        
                     
         
                     

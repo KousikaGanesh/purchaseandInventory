@@ -59,19 +59,21 @@ class indent_line(osv.osv):
         'indent_id': fields.many2one('indent','Indent No', size=128),
         'product_uom': fields.many2one('product.uom', 'Product Unit of Measure', required=True),
         'product_id': fields.many2one('product.product', 'Product', domain=[('purchase_ok','=',True)],required=True),
-        'brand': fields.many2one('indent', 'Brand', domain=[('purchase_ok','=',True)]),
+        'brand': fields.many2one('master', 'Brand', domain=[('purchase_ok','=',True)]),
         'qty':fields.float('Qty')
         
     }
     
-    def onchange_product_uom(self, cr, uid, ids, product_id, context=None):
-        value = {'product_uom' : ''}
-        if context is None:
-            context = {}
+    def onchange_uom_id(self, cr, uid, ids, product_id, context=None):
+
+        value = {'product_uom': ''}
         if product_id:
-            product_rec = self.pool.get('product.product').browse(cr,uid,product_id)
-            value={'product_uom' : product_rec.uom_id or False}
-        return value
+            pro_rec = self.pool.get('product.product').browse(cr, uid, product_id)
+            value = {'product_uom': pro_rec.uom_id.id}
+            print "---------------------------",pro_rec.uom_id.id
+        print "---------------------------",value
+        return {'value': value}
+
     
     
 indent()

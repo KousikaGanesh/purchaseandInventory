@@ -6,11 +6,13 @@
 			<field name="model">grn</field>
 			<field name="arch" type="xml">
 			<form string="GRN" version="7.0">
+				    <button name="load_grn" string="Load PI Details" type="object" class="oe_highlight" />
+ 
 			<group>
 					<group>
 						
 						<field name="created_by"/>
-
+ <field name="di_ids" widget="many2many_tags" required="1"/>
 						<field name="grn_no"/>
 						<field name="dc_no"/>
 						<field name="inward_type"/>

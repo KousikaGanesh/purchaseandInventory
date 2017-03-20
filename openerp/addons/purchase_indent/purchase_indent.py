@@ -25,8 +25,11 @@ class purchase_indent(osv.osv):
         'name': fields.char('Indent No', readonly=True),
         
         'indent_date':fields.date('Indent date',required=True),
-        'expected_date':fields.date('Expected date',required=True),
-        'purchase': fields.many2one('department_master','Purchase', required=True),
+    
+       
+		'di_ids': fields.many2many('indent', 'pi_di_table', 'pi_id', 'di_id', 'Department Indent'),
+
+       
         'line_ids': fields.one2many('purchase_indent.line','indent_no','Line Id', size=128),
         
     }
@@ -40,11 +43,26 @@ class purchase_indent(osv.osv):
     
     def create(self, cr, uid, vals, context=None):
         if vals.get('name','/')=='/':
-            vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'indent') or '/'
-        order =  super(indent, self).create(cr, uid, vals, context=context)
+            vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'purchase_indent') or '/'
+        order =  super(purchase_indent, self).create(cr, uid, vals, context=context)
         return order
         
-    
+    def load_department_indent(self, cr, uid, ids, context=None):
+		rec = self.browse(cr, uid, ids[0])
+		for item in rec.di_ids:
+			for element in item.line_ids:
+				self.pool.get('purchase_indent.line').create(cr, uid, {
+								 'indent_no': rec.id,
+										
+								  'brand': element.brand.id,
+
+								  'product_uom': element.product_uom.id,
+								  'product_id': element.product_id.id,
+								  'qty':element.qty
+        
+							})
+		
+		return True
 purchase_indent()
 
 class purchase_indent_line(osv.osv):
@@ -55,7 +73,6 @@ class purchase_indent_line(osv.osv):
     _columns = {
         
         'indent_no': fields.many2one('purchase_indent','Indent No', size=128),
-        'department': fields.many2one('department_master', 'Department', required=True),
         'brand': fields.many2one('master', 'Brand'),
 
         'product_uom': fields.many2one('product.uom', 'Product Unit of Measure', required=True),
