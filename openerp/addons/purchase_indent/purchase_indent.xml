@@ -76,7 +76,24 @@
             </field>
         </record>
         
+        <record id="purchase_indent__line_tree_view" model="ir.ui.view">
+            <field name="name">purchase_indent.tree</field>
+            <field name="model">purchase_indent.line</field>
+            <field name="arch" type="xml">
+                <tree toolbar="True" string="Purchase Indent Line">
+                    
+                    
+                        <field name="indent_no"/>
+                        <field name="product_id"/>
+                        <field name="brand"/>
+                        <field name="product_uom"/>
+                        <field name="qty"/>
+                    
         
+                    
+                </tree>
+            </field>
+        </record>
         
          <record id="purchase_indent_form_action" model="ir.actions.act_window">
             <field name="name">Purchase Indent</field>

@@ -225,6 +225,9 @@ class purchase_order(osv.osv):
         'create_uid':  fields.many2one('res.users', 'Responsible'),
         'company_id': fields.many2one('res.company','Company',required=True,select=1, states={'confirmed':[('readonly',True)], 'approved':[('readonly',True)]}),
         'journal_id': fields.many2one('account.journal', 'Journal'),
+		'pi_ids': fields.many2many('purchase_indent.line', 'pi_po_table', 'pi_id', 'order_id', 'Purchase Indent'),
+
+    
     }
     _defaults = {
         'date_order': fields.date.context_today,
