@@ -59,7 +59,7 @@ class indent_line(osv.osv):
         'indent_id': fields.many2one('indent','Indent No', size=128),
         'product_uom': fields.many2one('product.uom', 'Product Unit of Measure', required=True),
         'product_id': fields.many2one('product.product', 'Product', domain=[('purchase_ok','=',True)],required=True),
-        'brand': fields.many2one('master', 'Brand', domain=[('purchase_ok','=',True)]),
+        'brand': fields.many2one('master', 'Brand'),
         'qty':fields.float('Qty')
         
     }

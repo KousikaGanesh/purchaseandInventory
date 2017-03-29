@@ -25,7 +25,7 @@
     'images': ['images/purchase_requisitions.jpeg'],
     'website': 'http://www.openerp.com',
     'description': """ purchase indent""",
-    'depends' : ['base','grn','Department_master', 'purchase_indent'],
+    'depends' : ['base','product','Department_master', 'Indent'],
     'data': ['issue.xml'],
     'auto_install': False,
     'installable': True,

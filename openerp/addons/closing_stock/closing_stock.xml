@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    
+    <record id="closing_stock_form" model="ir.ui.view">
+            <field name="name">closing_stock.form</field>
+            <field name="model">closing_stock</field>
+            <field name="arch" type="xml">
+            <form string="Closing Stock" version="7.0">
+					 <button name="load_stock" string="Load Stock" type="object" class="oe_highlight"/>
+	
+                    <group>     
+                        
+                        <field name="date" invisible="1"/>
+                        
+                    </group>
+                    <field name="line_ids">
+                    
+                    <tree>
+                        <field name="product_id"/>
+                        <field name="uom"/>
+                        <field name="receive_qty"/>
+                        <field name="issued_qty"/>
+                        <field name="closing_stocks"/>
+                    </tree>
+                    <form>
+                        <field name="product_id"/>
+                        <field name="uom"/>
+                        <field name="receive_qty"/>
+                        <field name="issued_qty"/>
+                        <field name="closing_stocks"/>
+                    </form>
+                </field>
+                
+                    
+                    </form>
+            </field> 
+      
+
+        </record>
+        
+        <record id="closing_stock_tree_view" model="ir.ui.view">
+            <field name="name">closing_stock.tree</field>
+            <field name="model">closing_stock</field>
+            <field name="arch" type="xml">
+                <tree toolbar="True" string="Closing Stock">
+                    
+                    <field name="date"/>
+                    </tree>
+            </field>
+        </record>
+        
+         <record id="closing_stock_form_action" model="ir.actions.act_window">
+            <field name="name">Closing Stock</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">closing_stock</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="closing_stock_tree_view"/>
+        </record>
+
+
+<menuitem id="closing_stock_mainmenu"  name="Closing Stock" sequence="0" /> 
+        
+    <menuitem  id="closing_stock_submenu" name="Closing Stock" parent="closing_stock_mainmenu" sequence="1"/> 
+
+
+<menuitem action="closing_stock_form_action" name="Closing Stock" id="closing_stock_module_menu" parent="closing_stock_submenu" sequence="1"/> 
+
+
+</data>
+</openerp>

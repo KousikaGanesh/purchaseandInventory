@@ -225,7 +225,11 @@ class purchase_order(osv.osv):
         'create_uid':  fields.many2one('res.users', 'Responsible'),
         'company_id': fields.many2one('res.company','Company',required=True,select=1, states={'confirmed':[('readonly',True)], 'approved':[('readonly',True)]}),
         'journal_id': fields.many2one('account.journal', 'Journal'),
-		'pi_ids': fields.many2many('purchase_indent.line', 'pi_po_table', 'pi_id', 'order_id', 'Purchase Indent'),
+        'pi_ids': fields.many2many('purchase_indent.line', 'pi_po_table', 'pi_id', 'order_id', 'Purchase Indent'),
+        'add_text': fields.text('Address',readonly=False, states={'approved':[('readonly',True)],'done':[('readonly',True)]}),
+        'bill_type': fields.selection([('cash','CASH BILL'),('credit','CREDIT BILL')], 'Bill Type',states={'approved':[('readonly',True)],'done':[('readonly',True)]}),
+        'payment_id': fields.many2one('payment_master', 'Payment Term'),
+        'delivery_id': fields.many2one('delivery_master', 'Delivery Type'),
 
     
     }
@@ -286,6 +290,9 @@ class purchase_order(osv.osv):
                 proc_obj.write(cr, uid, procs, {'state': 'exception'}, context=context)
         return True
 
+    
+
+
     def button_dummy(self, cr, uid, ids, context=None):
         return True
 
@@ -320,11 +327,37 @@ class purchase_order(osv.osv):
                 }}
         supplier_address = partner.address_get(cr, uid, [partner_id], ['default'])
         supplier = partner.browse(cr, uid, partner_id)
+        tot_add = (supplier.street or '')+ ' ' + (supplier.street2 or '') + '\n'+(supplier.city or '')+ ',' +(supplier.state_id.name or '') + '-' +(supplier.zip or '') + '\nPh:' + (supplier.phone or '')+ '\n' +(supplier.mobile or '')       
+
         return {'value': {
             'pricelist_id': supplier.property_product_pricelist_purchase.id,
             'fiscal_position': supplier.property_account_position and supplier.property_account_position.id or False,
             'payment_term_id': supplier.property_supplier_payment_term.id or False,
+            'add_text' : tot_add or False
+
             }}
+
+    def load_pi_indent(self, cr, uid, ids, context=None):
+        rec = self.browse(cr, uid, ids[0])
+     
+        for item in rec.pi_ids:
+            
+            self.pool.get('purchase.order.line').create(cr, uid, {
+                              'order_id': rec.id,
+                              'pi_id': item.id,
+                                    
+                              'brand': item.brand.id,
+
+                              'product_uom': item.product_uom.id,
+                              'product_id': item.product_id.id,
+                              'product_qty':item.qty,
+                              'price_unit':item.product_id.standard_price,
+                              'name':item.product_id.name,
+                              'date_planned':rec.date_order,
+    
+                        })
+        
+        return True
 
     def invoice_open(self, cr, uid, ids, context=None):
         mod_obj = self.pool.get('ir.model.data')
@@ -411,6 +444,8 @@ class purchase_order(osv.osv):
 
 
     def wkf_approve_order(self, cr, uid, ids, context=None):
+        
+       
         self.write(cr, uid, ids, {'state': 'approved', 'date_approve': fields.date.context_today(self,cr,uid,context=context)})
         return True
 
@@ -916,8 +951,9 @@ class purchase_order_line(osv.osv):
         'invoice_lines': fields.many2many('account.invoice.line', 'purchase_order_line_invoice_rel', 'order_line_id', 'invoice_id', 'Invoice Lines', readonly=True),
         'invoiced': fields.boolean('Invoiced', readonly=True),
         'partner_id': fields.related('order_id','partner_id',string='Partner',readonly=True,type="many2one", relation="res.partner", store=True),
-        'date_order': fields.related('order_id','date_order',string='Order Date',readonly=True,type="date")
-
+        'date_order': fields.related('order_id','date_order',string='Order Date',readonly=True,type="date"),
+        'brand': fields.many2one('master', 'Brand'),
+        'pi_id': fields.many2one('purchase_indent.line', 'Purchase Indent'),
     }
     _defaults = {
         'product_uom' : _get_uom_id,

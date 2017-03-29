@@ -24,19 +24,20 @@ class grn(osv.osv):
         
         'created_by': fields.char('Created By', size=128),
         
+        'flag_opening':fields.boolean('Opening'),
         'grn_no':fields.char('GRN No'),
         'dc_no':fields.char('DC No'),
-        'inward_type': fields.char('Inward Type', size=128),
-		'billing_type': fields.char('Billing Type', size=128),
-		'created_date': fields.datetime('Created Date', size=128),
-		'grn_date':fields.datetime('GRN Date'),
-		'dc_date':fields.datetime('DC Date'),
-		'payment_type': fields.char('Payment Type', size=128),
-		'supplier': fields.char('Supplier', size=128),
-		'supplier_invoice_no':fields.char('Supplier Invoice No'),
-		'supplier_invoice_date':fields.datetime('Supplier Invoice Date'),   
-		'line_ids': fields.one2many('grn.line', 'grn_id', 'GRN Id'),
-		'di_ids': fields.many2many('purchase_indent', 'pi_grn_table', 'pi_id', 'di_id', 'grn'),
+        'inward_type': fields.many2one('inward_type','Inward Type', size=128),
+        'billing_type': fields.char('Billing Type', size=128),
+        'created_date': fields.datetime('Created Date', size=128),
+        'grn_date':fields.datetime('GRN Date'),
+        'dc_date':fields.datetime('DC Date'),
+        'payment_type': fields.many2one('payment_master','Payment Type', size=128),
+        'supplier': fields.many2one('res.partner','Supplier', size=128,domain=[('supplier','=',True)]),
+        'supplier_invoice_no':fields.char('Supplier Invoice No'),
+        'supplier_invoice_date':fields.datetime('Supplier Invoice Date'),   
+        'line_ids': fields.one2many('grn.line', 'grn_id', 'GRN Id'),
+        'po_ids': fields.many2many('purchase.order.line', 'po_grn_table', 'po_id', 'grn_id', 'grn',domain="[('partner_id','=',supplier)]"),
 
     }
     _defaults = {
@@ -54,19 +55,48 @@ class grn(osv.osv):
     
     def load_grn(self, cr, uid, ids, context=None):
         rec = self.browse(cr, uid, ids[0])
-        for item in rec.di_ids:
-            for element in item.line_ids:
-                self.pool.get('grn.line').create(cr, uid, {
-                                 'grn_id': rec.id,
-                                        
-                                  'brand': element.brand.id,
+        self.write(cr,uid,rec.id,{'flag_opening':True})
+        for item in rec.po_ids:
+            
+            self.pool.get('grn.line').create(cr, uid, {
+                             'grn_id': rec.id,
+                                    
+                              'brand': item.brand.id,
 
-                                  'product_uom': element.product_uom.id,
-                                  'product_id': element.product_id.id,
-                                  'qty':element.qty
-        
-                            })
-        
+                              'product_uom': item.product_uom.id,
+                              'product_id': item.product_id.id,
+                              'qty':item.product_qty,
+                              'price_unit':item.price_unit,
+    
+                        })
+    
+        return True
+
+
+    def load_stock(self, cr, uid, ids, context=None):
+        move_obj = self.pool.get('stock.move')
+        loc_obj = self.pool.get('stock.location').search(cr,uid,[('location_type','=','main')])
+
+        rec = self.browse(cr, uid, ids[0])
+        self.write(cr,uid,rec.id,{'flag_opening':False})
+        for item in rec.line_ids:
+            
+            move_obj.create(cr, uid, {
+                            'product_uos_qty': item.qty,
+                            'product_uom': item.product_uom.id,
+                            'product_id': item.product_id.id,
+                            'name': item.product_id.name,
+                            'product_qty':item.qty,
+                            'price_unit':item.price_unit,
+                            'state':'done',
+                            'partner_id':rec.supplier.id,
+                            'company_id':1,
+                            'location_id':8,
+                            'location_dest_id':loc_obj[0],
+                        
+    
+                        })
+    
         return True
 
     
@@ -85,7 +115,8 @@ class grn_line(osv.osv):
         'product_uom': fields.many2one('product.uom', 'Product Unit of Measure', required=True),
         'product_id': fields.many2one('product.product', 'Product'),
         'brand': fields.many2one('master', 'Brand', ),
-        'qty':fields.float('Qty')
+        'qty':fields.float('Qty'),
+        'price_unit':fields.char('Price Unit'),
         
     }
     

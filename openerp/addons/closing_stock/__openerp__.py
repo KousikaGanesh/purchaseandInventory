@@ -18,15 +18,15 @@
 #
 ##############################################################################
 {
-    'name': 'grn',
+    'name': 'closing_stock',
     'version': '0.1',
     'author': 'Sangeetha',
-    'category': 'grn',
+    'category': 'closing_stock',
     'images': ['images/purchase_requisitions.jpeg'],
     'website': 'http://www.openerp.com',
     'description': """ Cash Voucher Form """,
-    'depends' : ['base','product','purchase'],
-    'data': ['grn.xml'],
+    'depends' : ['base','product'],
+    'data': ['closing_stock.xml'],
     'auto_install': False,
     'installable': True,
 }

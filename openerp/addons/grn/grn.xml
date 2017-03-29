@@ -1,104 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>	
-	<record id="grn_form" model="ir.ui.view">
-			<field name="name">grn.form</field>
-			<field name="model">grn</field>
-			<field name="arch" type="xml">
-			<form string="GRN" version="7.0">
-				    <button name="load_grn" string="Load PI Details" type="object" class="oe_highlight" />
- 
-			<group>
-					<group>
-						
-						<field name="created_by"/>
- <field name="di_ids" widget="many2many_tags" required="1"/>
-						<field name="grn_no"/>
-						<field name="dc_no"/>
-						<field name="inward_type"/>
-						<field name="billing_type"/>
-						
-					</group>
-					<group>
-						<field name="created_date"/>
-						<field name="grn_date"/>
-						<field name="dc_date"/>
-						<field name="payment_type"/>
-					</group>
-					
-			
-					<group string="Supplier Details">
-						<field name="supplier"/>
-						<field name="supplier_invoice_no"/>
-						<field name="supplier_invoice_date"/>
-					</group>
-					
-				</group>
-				
-				
-				<field name="line_ids">
-					
-					<tree>
-						<field name="product_id"/>
-						<field name="brand"/>
-						<field name="product_uom"/>
-						<field name="qty"/>
-					</tree>
-					<form>
-						<field name="product_id"/>
-						<field name="brand"/>
-						<field name="product_uom"/>
-						<field name="qty"/>
-					</form>
-				</field>
-					
-					</form>
-			</field> 
-	  
+    <data>  
+    <record id="grn_form" model="ir.ui.view">
+            <field name="name">grn.form</field>
+            <field name="model">grn</field>
+            <field name="arch" type="xml">
+            <form string="GRN" version="7.0">
+            <button name="load_stock" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible':[('flag_opening','=',False)]}"/>
 	
-					
-				
-	</record>
-		
-		<record id="grn_tree_view" model="ir.ui.view">
-			<field name="name">grn.tree</field>
-			<field name="model">grn</field>
-			<field name="arch" type="xml">
-				<tree toolbar="True" string="grn">
-						<field name="created_by"/>
+            <group>
+                    <group>
+                        
+                        <field name="created_by"/>
+                        <field name="grn_no" readonly="1"/>
+                        <field name="dc_no"/>
+                        <field name="inward_type"/>
+                        <field name="billing_type"/>
+                        <field name="flag_opening" invisible="1"/>
+                        
+                    </group>
+                    <group>
+                        <field name="created_date"/>
+                        <field name="grn_date"/>
+                        <field name="dc_date"/>
+                        <field name="payment_type"/>
+                    </group>
+                    
+            
+                    <group string="Supplier Details">
+                        <field name="supplier" required="1"/>
+                        <field name="supplier_invoice_no"/>
+                        <field name="supplier_invoice_date"/>
+                    </group>
+                    
+                </group>
+                
+              <notebook>
+						<page string="Item Details">
+							 <field name="line_ids">
+                    
+									<tree>
+									   
+										<field name="product_id"/>
+										<field name="brand"/>
+										<field name="product_uom"/>
+										<field name="qty"/>
+										<field name="price_unit"/>
+										
+									</tree>
+									</field>
+						
+						</page>
+						<page string="Select Purchase order">
+							
+							<button name="load_grn" string="Load GRN" type="object" />
 
-						<field name="grn_no"/>
-						<field name="dc_no"/>
-						<field name="inward_type"/>
-						<field name="billing_type"/>
-						<field name="created_date"/>
-						<field name="grn_date"/>
-						<field name="dc_date"/>
-						<field name="payment_type"/>
-						<field name="supplier"/>
-						<field name="supplier_invoice_no"/>
-						<field name="supplier_invoice_date"/>
-					</tree>
-			</field>
-		</record>
-		
-		 <record id="grn_form_action" model="ir.actions.act_window">
-			<field name="name">GRN</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">grn</field>
-			<field name="view_type">form</field>
-			<field name="view_id" ref="grn_tree_view"/>
-		</record>
+							  <field name="po_ids" required="1"/>
+
+						</page>
+              </notebook>
+               
+                   </form>
+                </field>
+                 
+                    
+                
+    </record>
+        
+        <record id="grn_tree_view" model="ir.ui.view">
+            <field name="name">grn.tree</field>
+            <field name="model">grn</field>
+            <field name="arch" type="xml">
+                <tree toolbar="True" string="grn">
+                        <field name="created_by"/>
+
+                        <field name="grn_no"/>
+                        <field name="dc_no"/>
+                        <field name="inward_type"/>
+                        <field name="billing_type"/>
+                        <field name="created_date"/>
+                        <field name="grn_date"/>
+                        <field name="dc_date"/>
+                        <field name="payment_type"/>
+                        <field name="supplier"/>
+                        <field name="supplier_invoice_no"/>
+                        <field name="supplier_invoice_date"/>
+                    </tree>
+            </field>
+        </record>
+        
+         <record id="grn_form_action" model="ir.actions.act_window">
+            <field name="name">GRN</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grn</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="grn_tree_view"/>
+        </record>
 
 
 <menuitem id="grn_mainmenu"  name="GRN" sequence="1" /> 
-		
-	<menuitem  id="grn_submenu" name="GRN" parent="grn_mainmenu" sequence="1"/> 
+        
+    <menuitem  id="grn_submenu" name="GRN" parent="grn_mainmenu" sequence="1"/> 
 
 
-<menuitem action="grn_form_action" name="General GRN" id="grn_module_menu" parent="grn_submenu" sequence="1"/> 
+<menuitem action="grn_form_action" name="GRN" id="grn_module_menu" parent="grn_submenu" sequence="1"/> 
 
 
 </data>
-	</openerp>
+    </openerp>
 

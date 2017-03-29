@@ -6,15 +6,18 @@
 			<field name="model">issue</field>
 			<field name="arch" type="xml">
 			<form string="Department Issue" version="7.0">
-			
+			 <button name="load_issue" string="Load Indent" type="object" class="oe_highlight" attrs="{'invisible':[('issue_no','!=','/')]}"/>
+			 <button name="issue_stock" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible':[('flag_opening','=',False)]}"/>
+	
 			<group>
 					<group>
 						
-						<field name="issue_no"/>
+						<field name="issue_no" readonly="1"/>
 
-						<field name="department_name"/>
-						<field name="department_indent_id"/>
-						
+						<field name="department_name" required="1"/>
+						<field name="department_indent_id" required="1"/>
+						<field name="flag_opening" invisible="1"/>
+                        
 					</group>
 					<group>
 						<field name="issue_date"/>
