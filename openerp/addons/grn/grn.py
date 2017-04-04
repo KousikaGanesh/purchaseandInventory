@@ -116,7 +116,7 @@ class grn_line(osv.osv):
         'product_id': fields.many2one('product.product', 'Product'),
         'brand': fields.many2one('master', 'Brand', ),
         'qty':fields.float('Qty'),
-        'price_unit':fields.char('Price Unit'),
+        'price_unit':fields.float('Price Unit'),
         
     }
     

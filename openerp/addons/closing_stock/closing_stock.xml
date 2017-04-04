@@ -60,7 +60,7 @@
         </record>
 
 
-<menuitem id="closing_stock_mainmenu"  name="Closing Stock" sequence="0" /> 
+<menuitem id="closing_stock_mainmenu"  name="Closing Stock" sequence="5" /> 
         
     <menuitem  id="closing_stock_submenu" name="Closing Stock" parent="closing_stock_mainmenu" sequence="1"/> 
 

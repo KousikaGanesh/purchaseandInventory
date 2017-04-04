@@ -25,7 +25,7 @@ class closing_stock(osv.osv):
         
         'date':fields.datetime('Date'),
         
-        'line_ids': fields.one2many('closing_stock.line','product_id','Line Id', size=128),
+        'line_ids': fields.one2many('closing_stock.line','closing_id','Line Id', size=128),
         
     }
     
@@ -58,8 +58,7 @@ class closing_stock(osv.osv):
            
             out_move_obj = self.pool.get('stock.move').search(cr,uid,[('location_id','=',23),('product_id','=',item.id)])
             out_move_rec = self.pool.get('stock.move').browse(cr,uid,out_move_obj)
-            print "--------------in_move_rec----------",out_move_rec
-          
+            
             if out_move_rec:
                 for j in out_move_rec:
                     out_qty +=j.product_qty
@@ -70,19 +69,15 @@ class closing_stock(osv.osv):
             if close_qty > 0:
 				
                 
-                self.pool.get('closing_stock_line').create(cr, uid, {
-                            'product_uos_qty': item.qty,
-                            'product_uom': item.product_uom.id,
-                            'product_id': item.product_id.id,
-                            'name': item.product_id.name,
-                            'product_qty':item.qty,
-                            'price_unit':0.00,
-                            'state':'done',
-                            'partner_id':1,
-                            'company_id':1,
-                            'location_id':loc_obj[0],
-                            'location_dest_id':rec.department_name.stock_location.id,
-                            'move_type':'out',
+                self.pool.get('closing_stock.line').create(cr, uid, {
+                            'closing_id': rec.id,
+                            'product_id': item.id,
+                            'uom': item.uom_id.id,
+                            
+                            'receive_qty':in_qty,
+                            'issued_qty': out_qty,
+                            'closing_stocks':close_qty,
+                           
     
                         })
         return True 
